@@ -1,12 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Calculator</title>
     <script src="script.js" defer></script>
-</head>
-<body>
-    
-</body>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="calc-container" class="calc-container">
+      <div class="display">
+        <button>C</button>
+        12345678
+      </div>
+      <div class="operation-container">
+        <div id="digits" class="digits"></div>
+        <div class="operators">
+          <button class="operator">+</button>
+          <button class="operator">-</button>
+          <button class="operator">*</button>
+          <button class="operator">/</button>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>
