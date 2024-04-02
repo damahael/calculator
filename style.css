@@ -4,12 +4,16 @@
     box-sizing: border-box;
 }
 
+button {
+    cursor: pointer;
+}
+
 .calc-container {
     display: flex;
     flex-direction: column;
     height: 70vh;
     width: 20vw;
-    margin: 0 auto;
+    margin: 10px auto;
 }
 
 .display {

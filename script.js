@@ -1,51 +1,52 @@
 function add(number, secondNumber) {
-  console.log(number + secondNumber);
+  return number + secondNumber;
 }
 
 function subtract(number, secondNumber) {
-  console.log(number - secondNumber);
+  return number - secondNumber;
 }
 
 function multiply(number, secondNumber) {
-  console.log(number * secondNumber);
+  return number * secondNumber;
 }
 
 function divide(number, secondNumber) {
-  console.log(number / secondNumber);
+  return number / secondNumber;
 }
 
 let firstNumber;
 let operator;
 let secondNumber;
+let displayValue = 0;
 
 function operate(first, operator, second) {
-  let values = 0;
-
   if (operator === "+") {
-    values = add(first, second);
+    return (displayValue = add(first, second));
   }
 
   if (operator === "-") {
-    values = subtract(first, second);
+    console.log((displayValue = subtract(first, second)));
   }
 
   if (operator === "*") {
-    values = multiply(first, second);
+    displayValue = multiply(first, second);
   }
 
   if (operator === "/ ") {
-    values = divide(first, second);
+    displayValue = divide(first, second);
   }
 }
 
-operate(25, "-", 10);
+operate(35, "-", 10);
 
 const digits = document.querySelector("#digits");
+const display = document.querySelector("#display");
 
 function addDigits() {
   for (let i = 9; i > -1; i--) {
     const digit = document.createElement("button");
     digit.classList.add("digit");
+    digit.setAttribute("id", i);
     digit.textContent = i;
     digits.appendChild(digit);
   }
@@ -61,3 +62,22 @@ function addDigits() {
 }
 
 addDigits();
+
+const allDigits = document.querySelectorAll(".digit");
+let num = "";
+
+allDigits.forEach((digit) => {
+  digit.addEventListener("click", () => {
+    num += digit.id;
+    display.textContent = num;
+    console.log(num);
+  });
+});
+
+const clearButton = document.querySelector("#clear-button")
+
+clearButton.addEventListener('click', () => {
+  num = ''
+  display.textContent = num;
+})
+
