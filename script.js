@@ -22,8 +22,8 @@ function addDigits() {
 
 addDigits();
 
-//let displayValue = 0;
-const display = document.querySelector("#display");
+const currentNumber = document.querySelector("#number");
+const fullOperation = document.querySelector('#full-operation')
 
 function add(number, secondNumber) {
   return number + secondNumber;
@@ -43,19 +43,23 @@ function divide(number, secondNumber) {
 
 function operate(first, operator, second) {
   if (operator === "+") {
-    display.textContent = add(first, second);
+    currentNumber.textContent = add(first, second);
+    return add(first, second)
   }
 
   if (operator === "-") {
-    display.textContent = subtract(first, second);
+    currentNumber.textContent = subtract(first, second);
+    return subtract(first, second)
   }
 
   if (operator === "*") {
-    display.textContent = multiply(first, second);
+    currentNumber.textContent = multiply(first, second);
+    return multiply(first, second)
   }
 
   if (operator === "/") {
-    display.textContent = divide(first, second);
+    currentNumber.textContent = divide(first, second);
+    return divide(first, second)
   }
 }
 
@@ -77,24 +81,31 @@ allDigits.forEach((digit) => {
   digit.addEventListener("click", () => {
     if (operatorValue == "") {
       firstNumber += digit.id;
-      display.textContent = firstNumber;
-      console.log("first", firstNumber, typeof firstNumber);
+      currentNumber.textContent = firstNumber;
+      console.log("first", firstNumber);
     }
 
     if (operatorValue !== "") {
       secondNumber += digit.id
+      currentNumber.textContent = secondNumber;
       console.log("second", secondNumber);
-      display.textContent = secondNumber;
     }
 
-    console.log("hey", firstNumber, secondNumber);
+    if (firstNumber !== '' && operatorValue !== '' && secondNumber !== '') {
+      let result = operate(Number(firstNumber), operatorValue, Number(secondNumber))
+      currentNumber.textContent = result
+      firstNumber = result
+      operatorValue = ''
+      secondNumber = ''
+      console.log('result', result);
+      //after first and second numbers, the result becomes the value of firstNumber, so the operation can go on.
+    }
   });
 });
 
 equal.addEventListener("click", () => {
   firstNumber = Number(firstNumber)
   secondNumber = Number(secondNumber)
-  console.log(typeof firstNumber);
   operate(firstNumber, operatorValue, secondNumber);
 });
 
@@ -104,5 +115,5 @@ clearButton.addEventListener("click", () => {
   firstNumber = '';
   secondNumber = '';
   operatorValue = '';
-  display.textContent = "";
+  currentNumber.textContent = "";
 });
