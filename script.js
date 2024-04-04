@@ -22,7 +22,7 @@ function addDigits() {
 
 addDigits();
 
-let displayValue = 0;
+//let displayValue = 0;
 const display = document.querySelector("#display");
 
 function add(number, secondNumber) {
@@ -63,9 +63,9 @@ const allDigits = document.querySelectorAll(".digit");
 const operators = document.querySelectorAll(".operator");
 const equal = document.querySelector("#equal");
 
-let firstNumber;
+let firstNumber = '';
 let operatorValue = "";
-let secondNumber;
+let secondNumber = '';
 
 operators.forEach((operator) => {
   operator.addEventListener("click", () => {
@@ -76,13 +76,13 @@ operators.forEach((operator) => {
 allDigits.forEach((digit) => {
   digit.addEventListener("click", () => {
     if (operatorValue == "") {
-      firstNumber = Number(digit.id);
+      firstNumber += digit.id;
       display.textContent = firstNumber;
-      console.log("first", firstNumber);
+      console.log("first", firstNumber, typeof firstNumber);
     }
 
     if (operatorValue !== "") {
-      secondNumber = Number(digit.id);
+      secondNumber += digit.id
       console.log("second", secondNumber);
       display.textContent = secondNumber;
     }
@@ -92,13 +92,17 @@ allDigits.forEach((digit) => {
 });
 
 equal.addEventListener("click", () => {
+  firstNumber = Number(firstNumber)
+  secondNumber = Number(secondNumber)
+  console.log(typeof firstNumber);
   operate(firstNumber, operatorValue, secondNumber);
 });
 
 const clearButton = document.querySelector("#clear-button");
 
 clearButton.addEventListener("click", () => {
-  firstNumber = 0;
-  secondNumber = 0;
+  firstNumber = '';
+  secondNumber = '';
+  operatorValue = '';
   display.textContent = "";
 });
