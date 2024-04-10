@@ -11,6 +11,7 @@ function addDigits() {
   const dot = document.createElement("button");
   dot.classList.add("digit");
   dot.textContent = ".";
+  dot.setAttribute("id", ".");
   digits.appendChild(dot);
 
   const equal = document.createElement("button");
@@ -23,7 +24,7 @@ function addDigits() {
 addDigits();
 
 const currentNumber = document.querySelector("#number");
-const fullOperation = document.querySelector('#full-operation')
+const fullOperation = document.querySelector("#full-operation");
 
 function add(number, secondNumber) {
   return number + secondNumber;
@@ -44,22 +45,22 @@ function divide(number, secondNumber) {
 function operate(first, operator, second) {
   if (operator === "+") {
     currentNumber.textContent = add(first, second);
-    return add(first, second)
+    return add(first, second);
   }
 
   if (operator === "-") {
     currentNumber.textContent = subtract(first, second);
-    return subtract(first, second)
+    return subtract(first, second);
   }
 
   if (operator === "*") {
     currentNumber.textContent = multiply(first, second);
-    return multiply(first, second)
+    return multiply(first, second);
   }
 
   if (operator === "/") {
     currentNumber.textContent = divide(first, second);
-    return divide(first, second)
+    return divide(first, second);
   }
 }
 
@@ -67,13 +68,23 @@ const allDigits = document.querySelectorAll(".digit");
 const operators = document.querySelectorAll(".operator");
 const equal = document.querySelector("#equal");
 
-let firstNumber = '';
+let current = "firstNumber";
+let firstNumber = "";
 let operatorValue = "";
-let secondNumber = '';
+let secondNumber = "";
+let array = [];
+let calculationPending = false; 
 
 operators.forEach((operator) => {
   operator.addEventListener("click", () => {
+    if (calculationPending) {
+      firstNumber = operate(Number(firstNumber), operatorValue, Number(secondNumber));
+      currentNumber.textContent = firstNumber;
+      secondNumber = '';
+      console.log('result', firstNumber);
+    }
     operatorValue = operator.id;
+    calculationPending = (secondNumber !== ''); 
   });
 });
 
@@ -82,38 +93,31 @@ allDigits.forEach((digit) => {
     if (operatorValue == "") {
       firstNumber += digit.id;
       currentNumber.textContent = firstNumber;
-      console.log("first", firstNumber);
-    }
-
-    if (operatorValue !== "") {
-      secondNumber += digit.id
+    } else {
+      secondNumber += digit.id;
       currentNumber.textContent = secondNumber;
-      console.log("second", secondNumber);
-    }
-
-    if (firstNumber !== '' && operatorValue !== '' && secondNumber !== '') {
-      let result = operate(Number(firstNumber), operatorValue, Number(secondNumber))
-      currentNumber.textContent = result
-      firstNumber = result
-      operatorValue = ''
-      secondNumber = ''
-      console.log('result', result);
-      //after first and second numbers, the result becomes the value of firstNumber, so the operation can go on.
+      calculationPending = true;
     }
   });
 });
 
 equal.addEventListener("click", () => {
-  firstNumber = Number(firstNumber)
-  secondNumber = Number(secondNumber)
-  operate(firstNumber, operatorValue, secondNumber);
+  if (firstNumber !== '' && operatorValue !== '' && secondNumber !== '') {
+    firstNumber = operate(Number(firstNumber), operatorValue, Number(secondNumber));
+    currentNumber.textContent = firstNumber;
+    operatorValue = '';
+    secondNumber = '';
+    calculationPending = false;
+    console.log('result', firstNumber);
+  }
 });
 
 const clearButton = document.querySelector("#clear-button");
 
 clearButton.addEventListener("click", () => {
-  firstNumber = '';
-  secondNumber = '';
-  operatorValue = '';
+  array = [];
+  firstNumber = "";
+  secondNumber = "";
+  operatorValue = "";
   currentNumber.textContent = "";
 });
