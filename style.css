@@ -12,7 +12,7 @@ button {
 .calc-container {
     display: flex;
     flex-direction: column;
-    height: 70vh;
+    height: 80vh;
     width: 20vw;
     margin: 10px auto;
 }
@@ -43,7 +43,8 @@ button {
     gap: 1px;
 }
 
-.digit {
+.digit,
+#equal{
     width: 5vw;
     flex: auto;
 }

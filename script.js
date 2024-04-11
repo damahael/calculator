@@ -15,7 +15,6 @@ function addDigits() {
   digits.appendChild(dot);
 
   const equal = document.createElement("button");
-  //equal.classList.add("operator");
   equal.setAttribute("id", "equal");
   equal.textContent = "=";
   digits.appendChild(equal);
@@ -72,48 +71,81 @@ let current = "firstNumber";
 let firstNumber = "";
 let operatorValue = "";
 let secondNumber = "";
-let operatorString = '';
-let calculationPending = false; 
+let calculationPending = false;
+let keyboardPress = false;
+
+function addOperator(varValue) {
+  if (calculationPending) {
+    firstNumber = operate(
+      Number(firstNumber),
+      operatorValue,
+      Number(secondNumber)
+    );
+    fullOperation.textContent += "=" + " " + firstNumber + " ";
+    currentNumber.textContent = firstNumber;
+    secondNumber = "";
+  }
+  operatorValue = varValue;
+  fullOperation.textContent += operatorValue + " ";
+}
+
+function addNumber(varValue) {
+  if (operatorValue == "") {
+    firstNumber += varValue;
+    currentNumber.textContent = firstNumber;
+  } else {
+    secondNumber += varValue;
+    currentNumber.textContent = secondNumber;
+    calculationPending = true;
+  }
+
+  fullOperation.textContent =
+    firstNumber + " " + operatorValue + " " + secondNumber + " ";
+}
+
+function clickEqual () {
+  if (firstNumber !== "" && operatorValue !== "" && secondNumber !== "") {
+    firstNumber = operate(
+      Number(firstNumber),
+      operatorValue,
+      Number(secondNumber)
+    );
+    currentNumber.textContent = firstNumber;
+    fullOperation.textContent += '=' + ' ' + firstNumber + ' '
+    operatorValue = "";
+    secondNumber = "";
+    calculationPending = false;
+  }
+}
 
 operators.forEach((operator) => {
   operator.addEventListener("click", () => {
-
-    if (calculationPending) {
-      firstNumber = operate(Number(firstNumber), operatorValue, Number(secondNumber));
-      fullOperation.textContent += '=' + ' ' + firstNumber + ' '
-      currentNumber.textContent = firstNumber;
-      secondNumber = '';
-    }
-    operatorValue = operator.id;
-    operatorString += operatorValue
-    fullOperation.textContent += operatorValue + ' '
-    //calculationPending = (secondNumber !== ''); 
+    addOperator(operator.id);
   });
+});
+
+window.addEventListener("keypress", (e) => {
+  if (!isNaN(e.key)) {
+    addNumber(e.key);
+  }
+
+  if (e.key === "+" || e.key === "-" || e.key === "*" || e.key === "/") {
+    addOperator(e.key);
+  }
+
+  if (e.key === '=') {
+    clickEqual()
+  }
 });
 
 allDigits.forEach((digit) => {
   digit.addEventListener("click", () => {
-    if (operatorValue == "") {
-      firstNumber += digit.id;
-      currentNumber.textContent = firstNumber;
-    } else {
-      secondNumber += digit.id;
-      currentNumber.textContent = secondNumber;
-      calculationPending = true;
-    }
-
-    fullOperation.textContent = firstNumber + ' ' + operatorValue + ' ' + secondNumber + ' '
+    addNumber(digit.id);
   });
 });
 
 equal.addEventListener("click", () => {
-  if (firstNumber !== '' && operatorValue !== '' && secondNumber !== '') {
-    firstNumber = operate(Number(firstNumber), operatorValue, Number(secondNumber));
-    currentNumber.textContent = firstNumber;
-    operatorValue = '';
-    secondNumber = '';
-    calculationPending = false;
-  }
+  clickEqual()
 });
 
 const clearButton = document.querySelector("#clear-button");
