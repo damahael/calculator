@@ -72,19 +72,22 @@ let current = "firstNumber";
 let firstNumber = "";
 let operatorValue = "";
 let secondNumber = "";
-let array = [];
+let operatorString = '';
 let calculationPending = false; 
 
 operators.forEach((operator) => {
   operator.addEventListener("click", () => {
+
     if (calculationPending) {
       firstNumber = operate(Number(firstNumber), operatorValue, Number(secondNumber));
+      fullOperation.textContent += '=' + ' ' + firstNumber + ' '
       currentNumber.textContent = firstNumber;
       secondNumber = '';
-      console.log('result', firstNumber);
     }
     operatorValue = operator.id;
-    calculationPending = (secondNumber !== ''); 
+    operatorString += operatorValue
+    fullOperation.textContent += operatorValue + ' '
+    //calculationPending = (secondNumber !== ''); 
   });
 });
 
@@ -98,6 +101,8 @@ allDigits.forEach((digit) => {
       currentNumber.textContent = secondNumber;
       calculationPending = true;
     }
+
+    fullOperation.textContent = firstNumber + ' ' + operatorValue + ' ' + secondNumber + ' '
   });
 });
 
@@ -108,7 +113,6 @@ equal.addEventListener("click", () => {
     operatorValue = '';
     secondNumber = '';
     calculationPending = false;
-    console.log('result', firstNumber);
   }
 });
 
@@ -120,4 +124,5 @@ clearButton.addEventListener("click", () => {
   secondNumber = "";
   operatorValue = "";
   currentNumber.textContent = "";
+  fullOperation.textContent = "";
 });
