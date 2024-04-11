@@ -73,6 +73,7 @@ let operatorValue = "";
 let secondNumber = "";
 let calculationPending = false;
 let keyboardPress = false;
+let displayValue = ''
 
 function addOperator(varValue) {
   if (calculationPending) {
@@ -99,9 +100,16 @@ function addNumber(varValue) {
     calculationPending = true;
   }
 
-  fullOperation.textContent =
-    firstNumber + " " + operatorValue + " " + secondNumber + " ";
+  displayValue = firstNumber + " " + operatorValue + " " + secondNumber + " ";
+  fullOperation.textContent = displayValue
+
 }
+
+operators.forEach((operator) => {
+  operator.addEventListener("click", () => {
+    addOperator(operator.id);
+  });
+});
 
 function clickEqual () {
   if (firstNumber !== "" && operatorValue !== "" && secondNumber !== "") {
@@ -118,12 +126,6 @@ function clickEqual () {
   }
 }
 
-operators.forEach((operator) => {
-  operator.addEventListener("click", () => {
-    addOperator(operator.id);
-  });
-});
-
 window.addEventListener("keypress", (e) => {
   if (!isNaN(e.key)) {
     addNumber(e.key);
@@ -133,8 +135,24 @@ window.addEventListener("keypress", (e) => {
     addOperator(e.key);
   }
 
-  if (e.key === '=') {
+  if (e.key === '=' || e.key === 'Enter') {
     clickEqual()
+  }
+});
+
+window.addEventListener('keydown', (e) => {
+  if (e.key === 'Backspace') {
+    if (operatorValue == "") {
+      firstNumber = firstNumber.slice(0, -1);
+      displayValue = displayValue.replace(firstNumber, firstNumber.slice(0, -1));
+      fullOperation.textContent = displayValue
+      currentNumber.textContent = firstNumber;
+    } else {
+      secondNumber = secondNumber.slice(0, -1);
+      displayValue = displayValue.replace(secondNumber, secondNumber.slice(0, -1));
+      fullOperation.textContent = displayValue
+      currentNumber.textContent = secondNumber;
+    }
   }
 });
 
