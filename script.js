@@ -1,4 +1,4 @@
-const digits = document.querySelector("#digits");
+const digitsContainer = document.querySelector(".options-and-digits");
 
 function addDigits() {
   for (let i = 9; i > -1; i--) {
@@ -6,13 +6,13 @@ function addDigits() {
     digit.classList.add("digit");
     digit.setAttribute("id", i);
     digit.textContent = i;
-    digits.appendChild(digit);
+    digitsContainer.appendChild(digit);
   }
   const dot = document.createElement("button");
   dot.classList.add("digit");
   dot.textContent = ".";
   dot.setAttribute("id", ".");
-  digits.appendChild(dot);
+  digitsContainer.appendChild(dot);
 }
 
 addDigits();
