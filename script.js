@@ -13,11 +13,6 @@ function addDigits() {
   dot.textContent = ".";
   dot.setAttribute("id", ".");
   digits.appendChild(dot);
-
-  const equal = document.createElement("button");
-  equal.setAttribute("id", "equal");
-  equal.textContent = "=";
-  digits.appendChild(equal);
 }
 
 addDigits();
@@ -25,47 +20,27 @@ addDigits();
 const currentNumber = document.querySelector("#number");
 const fullOperation = document.querySelector("#full-operation");
 
-function add(number, secondNumber) {
-  return number + secondNumber;
-}
-
-function subtract(number, secondNumber) {
-  return number - secondNumber;
-}
-
-function multiply(number, secondNumber) {
-  return number * secondNumber;
-}
-
-function divide(number, secondNumber) {
-  return number / secondNumber;
-}
-
 function operate(first, operator, second) {
   if (operator === "+") {
-    currentNumber.textContent = add(first, second);
-    return add(first, second);
+    return first + second
   }
 
   if (operator === "-") {
-    currentNumber.textContent = subtract(first, second);
-    return subtract(first, second);
+    return first - second
   }
 
   if (operator === "*") {
-    currentNumber.textContent = multiply(first, second);
-    return multiply(first, second);
+    return first * second
   }
 
   if (operator === "/") {
-    currentNumber.textContent = divide(first, second);
-    return divide(first, second);
+    return first / second
   }
 }
 
 const allDigits = document.querySelectorAll(".digit");
 const operators = document.querySelectorAll(".operator");
-const equal = document.querySelector("#equal");
+const equal = document.querySelector(".equal");
 
 let current = "firstNumber";
 let firstNumber = "";
@@ -140,21 +115,31 @@ window.addEventListener("keypress", (e) => {
   }
 });
 
+function undoInput () {
+  if (operatorValue == "") {
+    firstNumber = firstNumber.slice(0, -1);
+    displayValue = displayValue.replace(firstNumber, firstNumber.slice(0, -1));
+    fullOperation.textContent = displayValue
+    currentNumber.textContent = firstNumber;
+  } else {
+    secondNumber = secondNumber.slice(0, -1);
+    displayValue = displayValue.replace(secondNumber, secondNumber.slice(0, -1));
+    fullOperation.textContent = displayValue
+    currentNumber.textContent = secondNumber;
+  }
+}
+ 
 window.addEventListener('keydown', (e) => {
   if (e.key === 'Backspace') {
-    if (operatorValue == "") {
-      firstNumber = firstNumber.slice(0, -1);
-      displayValue = displayValue.replace(firstNumber, firstNumber.slice(0, -1));
-      fullOperation.textContent = displayValue
-      currentNumber.textContent = firstNumber;
-    } else {
-      secondNumber = secondNumber.slice(0, -1);
-      displayValue = displayValue.replace(secondNumber, secondNumber.slice(0, -1));
-      fullOperation.textContent = displayValue
-      currentNumber.textContent = secondNumber;
-    }
+    undoInput()
   }
 });
+
+const undoButton = document.querySelector('#undo')
+
+undoButton.addEventListener('click', () => {
+  undoInput()
+})
 
 allDigits.forEach((digit) => {
   digit.addEventListener("click", () => {
@@ -176,3 +161,11 @@ clearButton.addEventListener("click", () => {
   currentNumber.textContent = "";
   fullOperation.textContent = "";
 });
+
+const negateButton = document.querySelector('#negate')
+
+negateButton.addEventListener('click', () => {
+  displayValue = displayValue * -1
+  currentNumber.textContent = displayValue
+  fullOperation.textContent = displayValue
+})

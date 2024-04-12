@@ -1,61 +1,86 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-size: large;
 }
 
 button {
-    cursor: pointer;
+  cursor: pointer;
+  color: white;
+  border-radius: 8px;
 }
 
 .calc-container {
-    display: flex;
-    flex-direction: column;
-    height: 80vh;
-    width: 20vw;
-    margin: 10px auto;
+  display: flex;
+  flex-direction: column;
+  height: 90vh;
+  width: 40vw;
+  margin: 10px auto;
+  border: 7px solid black;
+  padding: 2px;
 }
 
 .display {
-    border: 1px solid black;
-    height: 30%;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    font-size: large;
+  border: 1px solid black;
+  height: 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  border: 5px solid black;
+  border-radius: 6px;
 }
 
-.display button {
-    width: 30px;
-    height: 20px;
+.display p {
+  margin-left: auto;
+  padding: 2px;
+  font-size: 32px;
+}
+
+#number {
+  height: 40px;
+}
+
+#full-operation {
+  font-size: medium;
 }
 
 .operation-container {
-    display: flex;
-    height: 70%;
+  display: flex;
+  height: 70%;
+  gap: 2px;
 }
 
 .digits {
-    display: flex;
-    flex-wrap: wrap;
-    width: 90%;
-    gap: 1px;
+  display: flex;
+  flex-wrap: wrap;
 }
 
-.digit,
-#equal{
-    width: 5vw;
-    flex: auto;
+.options-and-digits {
+  display: flex;
+  flex-wrap: wrap;
+  width: 90%;
+  gap: 1px;
+}
+
+.options-and-digits button {
+  width: 7vw;
+  height: 12.1vh;
+  flex: auto;
+  background-color: rgb(1, 1, 92);
 }
 
 .operators {
-    display: flex;
-    flex-direction: column;
-    width: 20%;
-    gap: 1px;
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  gap: 1px;
+  height: 100%;
 }
 
-.operator {
-    flex: auto;
+.operator,
+.equal {
+  flex: auto;
+  background-color: rgb(81, 81, 155);
 }

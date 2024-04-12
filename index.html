@@ -9,18 +9,25 @@
   </head>
   <body>
     <div id="calc-container" class="calc-container">
-      <div id='display' class="display">
+      <div id="display" class="display">
         <p id="full-operation"></p>
         <p id="number"></p>
       </div>
-      <button id="clear-button">Clear</button>
+
       <div class="operation-container">
-        <div id="digits" class="digits"></div>
+        <div class="options-and-digits">
+          <button id="clear-button">AC</button>
+          <button id="negate">+/-</button>
+          <button id="undo">⌫</button>
+          <div id="digits" class="digits"></div>
+        </div>
+
         <div class="operators">
-          <button id='+' class="operator">+</button>
+          <button id="+" class="operator">+</button>
           <button id="-" class="operator">-</button>
           <button id="*" class="operator">*</button>
           <button id="/" class="operator">/</button>
+          <button id="=" class="equal">=</button>
         </div>
       </div>
     </div>
