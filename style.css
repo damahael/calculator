@@ -1,15 +1,26 @@
+@font-face {
+  font-family: "Calculator";
+  src: url("./fonts/Calculator.ttf");
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
-  font-size: large;
+  font-family: "Calculator";
+
+}
+
+body {
+  background-color: rgb(127, 129, 131);
 }
 
 button {
   cursor: pointer;
   color: white;
   border-radius: 6px;
+  border: none;
+  font-size: 30px;
 }
 
 .calc-container {
@@ -18,8 +29,9 @@ button {
   height: 90vh;
   width: 40vw;
   margin: 10px auto;
-/*   border: 7px solid black; */
-  padding: 2px;
+  background-color: rgb(71, 71, 71);
+  border-radius: 8px;
+  padding: 15px;
 }
 
 .display {
@@ -30,26 +42,30 @@ button {
   justify-content: flex-end;
   border: 5px solid black;
   border-radius: 6px;
+  margin-bottom: 10px;
+  background-color: green;
+  padding: 3px;
 }
 
 .display p {
   margin-left: auto;
-  padding: 2px;
-  font-size: 32px;
+  color: white;
+  font-weight: 700;
 }
 
 #number {
-  height: 40px;
+  height: 62px;
+  font-size: 62px;
 }
 
 #full-operation {
-  font-size: medium;
+  font-size: 32px;
 }
 
 .operation-container {
   display: flex;
   height: 70%;
-  gap: 2px;
+  gap: 4px;
 }
 
 .digits {
@@ -61,24 +77,29 @@ button {
   display: flex;
   flex-wrap: wrap;
   width: 90%;
-  gap: 1px;
+  gap: 4px;
 }
 
 .options-and-digits button {
   width: 7vw;
   flex: auto;
-  background-color: rgb(1, 1, 92);
+  background-color: rgb(44, 44, 44);
 }
 
 .operators {
   display: flex;
   flex-direction: column;
   width: 40%;
-  gap: 1px;
+  gap: 4px;
 }
 
-.operator,
+.operator {
+  flex: auto;
+  background-color: rgb(137, 137, 138);
+}
+
 .equal {
   flex: auto;
-  background-color: rgb(81, 81, 155);
+    background-color: rgb(228, 228, 228);
+    color: black;
 }

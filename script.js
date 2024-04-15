@@ -22,6 +22,7 @@ const fullOperation = document.querySelector("#full-operation");
 
 function operate(first, operator, second) {
   if (operator === "+") {
+    currentNumber.textContent = first + second
     return first + second
   }
 
